@@ -5,7 +5,6 @@ class Productos {
 
   async save(producto) {
     try {
-      console.log(producto)
       await conexionMongoDB()
       const data = await schemaProducto.create(producto)
       await disconnectMongoDB()

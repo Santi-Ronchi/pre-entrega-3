@@ -138,7 +138,6 @@ const carrito = new Carrito()
 
 
 io.on('connection', socket => {
-  console.log('Nuevo cliente conectado!')
   
   // agregar al carrito
   socket.on('agregarProducto', async valor => {
@@ -149,39 +148,6 @@ io.on('connection', socket => {
   socket.on('eliminarProductos', async valor => {
     await carrito.deleteProductCart(valor.idCart, valor.idProd)
   })
-
-  // comprar Productos
-  //socket.on('comprarProductos', async valor => {
-  //  console.log('dentro de comprar productos')
-  //  // armo los productos
-  //  const cart = carrito.buscarCarrito(valor.idCart)
-  //  // mandar mail
-  //  const usuarioExistente = {nombre: req.user.nombre, email: req.user.username, direccion: req.user.direccion, edad: req.user.edad, telefono: req.user.telefono }
-  //  const mailOptions = { 
-  //    from: 'Servidor Node.js',
-  //    to: 'vernie.durgan17@ethereal.email',
-  //    subject: 'Nuevo Registro',
-  //    html: `nuevo pedido de NOMBRE:${usuarioExistente.nombre}, EMAIL:${usuarioExistente.email},fecha de nacimiento:${usuarioExistente.edad}, direccion: ${usuarioExistente.direccion}, telefono: ${usuarioExistente.telefono}. Pedido:${cart}`
-  //  }
-  //  await transporter.sendMail(mailOptions)
-  //  
-  //  // mandar whatsapp al cliente
-  //  try {
-  //    const message = await client.messages.create({
-  //     body: 'Su pedido ha sido recibido exitosamente y se encuentra en proceso.!',
-  //     from: 'whatsapp:+1 970 709 7341',
-  //     to: `whatsapp:+${usuarioExistente.telefono}`
-  //    })
-  //    console.log(message)
-  //  } catch (error) {
-  //    console.log(error)
-  //  }
-  //    
-  //  //crear uno nuevo y asignar
-  //  let carritoId = await carrito.createCarrito()
-  //  req.session.carrito = carritoId
-  //})
-
 })
 
 /* HANDLEBARS */

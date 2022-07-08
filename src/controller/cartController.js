@@ -43,7 +43,6 @@ module.exports = {
     },
 
     efectuarCompra: async (req, res) => {
-        console.log('dentro de comprar productos')
         const cart = carro.buscarCarrito(req.session.carrito)
         // mandar mail
         const usuarioExistente = {nombre: req.user.nombre, email: req.user.username, direccion: req.user.direccion, edad: req.user.edad, telefono: req.user.telefono }
@@ -62,7 +61,7 @@ module.exports = {
                 from: 'whatsapp:+14155238886',
                 to: `whatsapp:+${usuarioExistente.telefono}`
             })
-            console.log(message)
+            //console.log(message)
         } catch (error) {
             console.log(error)
         }
