@@ -1,7 +1,7 @@
 const express = require('express');
 const { chequeoAuteExistente , chequeoAutentificacion } = require('../funciones/funcAute')
 const perfilRouter = express.Router();
-const Usuario = require('../contenedor/usuarios')
+const Usuario = require('../container/userContainer')
 const usuario = new Usuario()
 const multer = require('multer')
 

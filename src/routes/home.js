@@ -8,7 +8,7 @@ const {
   getProductById,
   updateProductById,
   deleteProductById,
-} = require('../controlador/productos');
+} = require('../controller/productController');
 
 
 homeRouter.get('/', chequeoAutentificacion, getProducts);//ok

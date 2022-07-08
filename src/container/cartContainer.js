@@ -1,5 +1,5 @@
-const {conexionMongoDB,disconnectMongoDB} = require('../daos/mongo/mongodb');
-const schemaCarritos = require('../modal/carritos');
+const {conexionMongoDB,disconnectMongoDB} = require('../daos/mongodb');
+const schemaCarritos = require('../schemas/carritos');
 
 class Carrito {
   //ok

@@ -1,5 +1,5 @@
-const {conexionMongoDB,disconnectMongoDB} = require('../daos/mongo/mongodb');
-const schemaUsuario = require('../modal/usuarios');
+const {conexionMongoDB,disconnectMongoDB} = require('../daos/mongodb');
+const schemaUsuario = require('../schemas/usuarios');
 
 class Usuario {
     async createUsuario(usuario) {

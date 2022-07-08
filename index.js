@@ -49,12 +49,11 @@ app.use(
 
 /* TWILIO */
 
-//const twilio = require('twilio')
-//
-//const accountSid = process.env.ACCOUNT_SID;
-//const authToken = process.env.AUTH_TOKEN;
-//
-//const client = twilio(accountSid, authToken)
+const twilio = require('twilio')
+
+const accountSid = 'AC1be114ca37a48c091f65ca0228c79b2c';
+const authToken = '1a27e41a24d0a7249d77e53f54d87869';
+const client = twilio(accountSid, authToken)
 
 
 
@@ -62,7 +61,6 @@ app.use(
 /* ETHEREAL */
 
 const {createTransport} = require('nodemailer');
-
 const transporter = createTransport({
   host: 'smtp.ethereal.email',
   port: 587,
@@ -76,7 +74,7 @@ const transporter = createTransport({
 /* PASSPORT */
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-const Usuario = require('./src/contenedor/usuarios')
+const Usuario = require('./src/container/userContainer')
 const usuario = new Usuario()
 const { isValidPassword , createHash } = require('./src/funciones/funcBcrypt')
 
@@ -135,7 +133,7 @@ passport.deserializeUser(async (email, done) => {
 })
 
 // socket io
-const Carrito = require('./src/contenedor/carritos')
+const Carrito = require('./src/container/cartContainer')
 const carrito = new Carrito()
 
 
@@ -153,35 +151,36 @@ io.on('connection', socket => {
   })
 
   // comprar Productos
-  socket.on('comprarProductos', async valor => {
-    console.log('dentro de comprar productos')
-    // armo los productos
-    const cart = carrito.buscarCarrito(valor.idCart)
-    // mandar mail
-    const usuarioExistente = {nombre: req.user.nombre, email: req.user.username, direccion: req.user.direccion, edad: req.user.edad, telefono: req.user.telefono }
-    const mailOptions = { 
-      from: 'Servidor Node.js',
-      to: 'vernie.durgan17@ethereal.email',
-      subject: 'Nuevo Registro',
-      html: `nuevo pedido de NOMBRE:${usuarioExistente.nombre}, EMAIL:${usuarioExistente.email},fecha de nacimiento:${usuarioExistente.edad}, direccion: ${usuarioExistente.direccion}, telefono: ${usuarioExistente.telefono}. Pedido:${cart}`
-    }
-    await transporter.sendMail(mailOptions)
-    
-    // mandar whatsapp al cliente
-    try {
-      const message = await client.messages.create({
-       body: 'Su pedido ha sido recibido exitosamente y se encuentra en proceso.!',
-       from: 'whatsapp:+1 415 523 8886',
-       to: `whatsapp:+${usuarioExistente.telefono}`
-     })
-      console.log(message)
-   } catch (error) {
-      console.log(error)
-   }
-    //crear uno nuevo y asignar
-    let carritoId = await carrito.createCarrito()
-    req.session.carrito = carritoId
-  })
+  //socket.on('comprarProductos', async valor => {
+  //  console.log('dentro de comprar productos')
+  //  // armo los productos
+  //  const cart = carrito.buscarCarrito(valor.idCart)
+  //  // mandar mail
+  //  const usuarioExistente = {nombre: req.user.nombre, email: req.user.username, direccion: req.user.direccion, edad: req.user.edad, telefono: req.user.telefono }
+  //  const mailOptions = { 
+  //    from: 'Servidor Node.js',
+  //    to: 'vernie.durgan17@ethereal.email',
+  //    subject: 'Nuevo Registro',
+  //    html: `nuevo pedido de NOMBRE:${usuarioExistente.nombre}, EMAIL:${usuarioExistente.email},fecha de nacimiento:${usuarioExistente.edad}, direccion: ${usuarioExistente.direccion}, telefono: ${usuarioExistente.telefono}. Pedido:${cart}`
+  //  }
+  //  await transporter.sendMail(mailOptions)
+  //  
+  //  // mandar whatsapp al cliente
+  //  try {
+  //    const message = await client.messages.create({
+  //     body: 'Su pedido ha sido recibido exitosamente y se encuentra en proceso.!',
+  //     from: 'whatsapp:+1 970 709 7341',
+  //     to: `whatsapp:+${usuarioExistente.telefono}`
+  //    })
+  //    console.log(message)
+  //  } catch (error) {
+  //    console.log(error)
+  //  }
+  //    
+  //  //crear uno nuevo y asignar
+  //  let carritoId = await carrito.createCarrito()
+  //  req.session.carrito = carritoId
+  //})
 
 })
 
@@ -203,8 +202,8 @@ app.set('view engine', '.hbs')
 /* RUTAS */
 const loginRouter = require('./src/routes/login')
 const homeRouter = require('./src/routes/home')
-const cartRouter = require('./src/routes/carrito')
-const perfilRouter = require('./src/routes/perfil')
+const cartRouter = require('./src/routes/cart')
+const perfilRouter = require('./src/routes/profile')
 
 app.use('/api', loginRouter);
 app.use('/api/home', homeRouter);
