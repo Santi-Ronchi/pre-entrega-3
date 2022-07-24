@@ -49,6 +49,18 @@ module.exports = {
     }
   },
 
+  getOnlyProducts: async (req, res) => { 
+    try {
+      const productos = await Producto.getAll()
+      res.render('onlyProductos',{productos})
+    } catch (error) {
+      res.status(500).send({
+        status: 500,
+        messages: error.message,
+      });
+    }
+  },
+
   getProductById: async (req, res) => {
     const idProduct = req.params.id;
     try {
@@ -104,5 +116,4 @@ module.exports = {
       });
     }
   }
-
 };

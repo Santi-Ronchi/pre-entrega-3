@@ -2,7 +2,7 @@ const {conexionMongoDB,disconnectMongoDB} = require('../daos/mongodb');
 const schemaCarritos = require('../schemas/carritos');
 
 class Carrito {
-  //ok
+
   async createCarrito() {
     try {
       await conexionMongoDB();
@@ -15,7 +15,7 @@ class Carrito {
       throw Error(error.message);
     }
   }
-//ok
+
   async buscarCarrito(idCarrito) {
     try {
       await conexionMongoDB();
@@ -28,8 +28,6 @@ class Carrito {
     }
   }
 
-
-// ok
   async addProductToCart(idCart, idProduct) {
     try {
       await conexionMongoDB()
@@ -40,7 +38,7 @@ class Carrito {
       throw Error(error.message);
     }
   }
-//ok
+
   async deleteCartById(id) {
     try {
       await conexionMongoDB()
@@ -51,7 +49,7 @@ class Carrito {
       throw Error(error.message);
     }
   }
-//ok
+
   async deleteProductCart(idCart, idProduct) {
     try {
       await conexionMongoDB()

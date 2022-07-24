@@ -5,14 +5,18 @@ const {
   createProduct,
   webCarga,
   getProducts,
+  getOnlyProducts,
   getProductById,
   updateProductById,
   deleteProductById,
 } = require('../controller/productController');
 
 
-homeRouter.get('/', chequeoAutentificacion, getProducts);//ok
+homeRouter.get('/', chequeoAutentificacion, getProducts);
+homeRouter.get('/onlyProducts', getOnlyProducts);
 homeRouter.post('/carga/', createProduct);
+homeRouter.delete('/carga/:id', deleteProductById);
+homeRouter.post('/carga/:id', updateProductById);
 homeRouter.get('/carga/', webCarga);
 
 module.exports = homeRouter;
